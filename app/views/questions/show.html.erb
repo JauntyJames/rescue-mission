@@ -1,2 +1,16 @@
-<%= @question.title %>
-<%= @question.description %>
+<h1><%= @question.title %></h1>
+<p>
+  <%= @question.description %>
+</p>
+<h3>Post answer</h3>
+<%= form_for [@question, @answer] do |f| %>
+  <div class="field">
+    <%= f.label :description, "Solution:" %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="actions">
+
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -5,9 +5,27 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answer = Answer.new
   end
 
   def new
-    @article = Article.new
+    @question = Question.new
+  end
+
+  def create
+    @question = Question.new(question_params)
+    # @question.title = params[:title]
+    # @question.description = paramas[:description]
+    if @question.save
+      flash[:notice] = "Question created!"
+      redirect_to questions_path
+    elsif
+      flash[:alert] = "Question not created"
+      render :new
+    end
+  end
+
+  def question_params
+    params.require(:question).permit(:title, :description)
   end
 end
