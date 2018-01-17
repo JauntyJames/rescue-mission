@@ -1,3 +1,5 @@
+require 'kramdown'
+
 class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc)
@@ -17,6 +19,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     # @question.title = params[:title]
     # @question.description = paramas[:description]
+    @question.description = Kramdown::Document.new(@question.description).to_html
     if @question.save
       flash[:notice] = "Question created!"
       redirect_to questions_path
