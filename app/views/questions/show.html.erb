@@ -2,7 +2,14 @@
 <p>
   <%= @question.description %>
 </p>
+<h3>Answers:</h3>
+<ul>
+<% @answers.each do |answer| %>
+  <li><%= answer.description %></li>
+<% end %>
+</ul>
 <h3>Post answer</h3>
+
 <%= form_for [@question, @answer] do |f| %>
   <div class="field">
     <%= f.label :description, "Solution:" %>

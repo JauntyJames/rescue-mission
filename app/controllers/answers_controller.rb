@@ -2,6 +2,9 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = Answer.new(answer_params)
+    @answer.question_id = params[:question_id]
+    require 'pry'
+    binding.pry
     if @answer.save
       flash[:notice] = "Answer created!"
       redirect_to question_path(@question)
