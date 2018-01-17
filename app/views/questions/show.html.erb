@@ -5,7 +5,8 @@
 <h3>Answers:</h3>
 <ul>
 <% @answers.each do |answer| %>
-  <li><%= answer.description %></li>
+  <li><%= answer.description %> <%= link_to "Delete", question_answer_path(answer), method: 'delete' %></li>
+
 <% end %>
 </ul>
 <h3>Post answer</h3>
@@ -21,3 +22,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= link_to "Delete Question", question_path(@question), method: 'delete' %>
+<%= link_to "Edit Question", edit_question_path(@question) %>

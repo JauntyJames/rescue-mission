@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answers = Answer.all
+    @answers = @question.answers
     @answer = Answer.new
   end
 
@@ -20,10 +20,35 @@ class QuestionsController < ApplicationController
     if @question.save
       flash[:notice] = "Question created!"
       redirect_to questions_path
-    elsif
+    else
       flash[:alert] = "Question not created"
       render :new
     end
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    if @question.update_attributes(question_params)
+      flash[:notice] = "Question updated!"
+      redirect_to questions_path
+    else
+      flash[:alert] = "Question not updated"
+      render :edit
+    end
+  end
+
+  def destroy
+    @question = Question.find(params[:id])
+    @answers = @question.answers
+    @question.destroy
+    @answers.destroy
+    flash[:notice] = "Question destroyed"
+
+    redirect_to questions_path
   end
 
   def question_params
